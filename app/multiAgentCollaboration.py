@@ -7,19 +7,24 @@ from dotenv import load_dotenv
 from langchain_community.chat_models import ChatOllama
 
 
-from app import FinancialAdvisorSystem
-from app.agents import LlamaAgent
+from app.FinancialAdvisorSystem import FinancialAdvisorSystem
+from app.agents.AnalystAgent import AnalystAgent
+from app.agents.CriticAgent import CriticAgent
+from app.agents.LlamaAgent import LlamaAgent
+from app.agents.MarketAgent import MarketAgent, MarketAgentBr
 
 load_dotenv() 
-API_KEY = os.getenv('ALPHA_API_KEY')
+__API_KEY__ = os.getenv('ALPHA_API_KEY') or ''
 
 llama = LlamaAgent("gemma3:1b")
-#market_agent = MarketAgent(API_KEY)
-market_agent = MarketAgentBr()
 analyst_agent = AnalystAgent(llama)
 critic_agent = CriticAgent(llama)
 
-advisor = FinancialAdvisorSystem(market_agent, analyst_agent, critic_agent)
-
-result = advisor.run("PETR4", horizon="1mo", risk="medium")
-print(result)
+def run_multi_agent(ticker: str, horizon: str = "1mo", risk: str = "medium", exchange: str = "br") -> dict:
+    if exchange == "br":
+        market_agent = MarketAgentBr()
+    else:
+        market_agent = MarketAgent(__API_KEY__)
+    advisor = FinancialAdvisorSystem(market_agent, analyst_agent, critic_agent)
+    result = advisor.run(ticker, horizon=horizon, risk=risk)
+    return result

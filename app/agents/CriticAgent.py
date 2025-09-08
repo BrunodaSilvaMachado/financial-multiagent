@@ -1,3 +1,6 @@
+from app.agents.LlamaAgent import LlamaAgent
+
+
 class CriticAgent:
     def __init__(self, llama_agent: LlamaAgent):
         self.llama = llama_agent
