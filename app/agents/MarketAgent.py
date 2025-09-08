@@ -16,8 +16,8 @@ class MarketAgent:
         cache_file = f"{self.cache_dir}/{ticker}.csv"
         try:
             # Tenta buscar dados da API
-            df, meta = self.ts.get_daily(symbol=ticker, outputsize=self.outputsize)
-            df = df.sort_index()
+            df, meta = self.ts.get_daily(symbol=ticker, outputsize=self.outputsize) # type: ignore
+            df = df.sort_index() # type: ignore
             df.to_csv(cache_file)  # salva no cache
             print(f"[INFO] Dados baixados online para {ticker}.")
         except Exception as e:

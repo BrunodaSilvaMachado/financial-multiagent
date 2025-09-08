@@ -2,10 +2,17 @@ import pandas as pd
 import numpy as np
 from typing import Dict, Any
 
-def load_sample_prices(ticker: str) -> pd.DataFrame:
+def load_sample_prices(ticker) -> pd.DataFrame:
     # POC: lê CSV de exemplo e filtra por ticker; ou substitua por API real
-    df = pd.read_csv("app/data/sample_prices.csv", parse_dates=["date"])
-    return df[df["ticker"] == ticker].sort_values("date")
+    df = pd.read_csv("app/data_cache/sample_prices.csv", parse_dates=["date"])
+    if isinstance(ticker, str):
+        return df[df["ticker"] == ticker].sort_values("date")
+    elif isinstance(ticker, (list, tuple)):
+        result = {}
+        for t in ticker:
+            result[t] = df[df["ticker"] == t].sort_values("date")
+        return pd.DataFrame(result) 
+    return pd.DataFrame()
 
 def compute_features(df: pd.DataFrame) -> Dict[str, Any]:
     # calcula features simples: retorno, vol, sma
@@ -25,7 +32,7 @@ def compute_features(df: pd.DataFrame) -> Dict[str, Any]:
     }
     return features
 
-def run_market_agent(ticker: str) -> Dict[str, Any]:
+def run_market_agent(ticker) -> Dict[str, Any]:
     df = load_sample_prices(ticker)
     if df.empty:
         raise ValueError(f"No data for {ticker}")
