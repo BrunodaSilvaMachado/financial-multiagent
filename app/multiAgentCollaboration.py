@@ -42,10 +42,11 @@ def run_multi_agent(ticker, horizon: str = "1mo", risk: str = "medium", exchange
     advisor = FinancialAdvisorSystem(market_agent, analyst_agent, critic_agent)
     
     #suport a lista de tickers
+    result = {}
     if isinstance(ticker, str):
-        result = advisor.run(ticker, horizon=horizon, risk=risk)
+        result[ticker] = advisor.run(ticker, horizon=horizon, risk=risk)
+        return result
     elif isinstance(ticker, (list,tuple)):
-        result = {}
         for t in ticker:
             try:
                 result[t] = advisor.run(t, horizon=horizon, risk=risk)
@@ -54,4 +55,3 @@ def run_multi_agent(ticker, horizon: str = "1mo", risk: str = "medium", exchange
         return result
     else:
         raise ValueError("Ticker deve ser string ou lista de strings.")
-    return {}
