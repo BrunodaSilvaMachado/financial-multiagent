@@ -2,6 +2,7 @@ from fastapi import FastAPI, HTTPException
 from app.schemas import RunRequest
 from app.agents.market_agent_heuristico import run_market_agent
 from app.agents.analyst_agent_heuristico import run_analyst_agent
+from app.multiAgentCollaboration import run_multi_agent
 
 app = FastAPI(title="Financial Multiagent POC")
 
@@ -24,3 +25,8 @@ def run_pipeline(req: RunRequest):
 @app.get("/")
 def health():
     return {"status":"ok"}
+
+@app.post("/run_macro")
+def run_macro_agent(req: RunRequest):
+    result = run_multi_agent(req.ticker, horizon=req.horizon, risk=req.risk, exchange=req.exchange)
+    return result
