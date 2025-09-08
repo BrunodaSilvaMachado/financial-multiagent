@@ -29,3 +29,15 @@ financial-multiagent/
 ├─ requirements.txt
 └─ README.md
 ```
+
+## Executar o projeto
+
+Iniciar a fastApi
+
+> uvicorn app.main:app --reload
+
+Iniciar o frontend
+
+> streamlit run app/frontend.py
+
+Abra o navegador em: http://localhost:8501
