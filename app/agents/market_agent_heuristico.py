@@ -4,7 +4,7 @@ from typing import Dict, Any
 
 def load_sample_prices(ticker) -> pd.DataFrame:
     # POC: lê CSV de exemplo e filtra por ticker; ou substitua por API real
-    df = pd.read_csv("app/data_cache/sample_prices.csv", parse_dates=["date"])
+    df = pd.read_csv("data_cache/sample_prices.csv", parse_dates=["date"])
     if isinstance(ticker, str):
         return df[df["ticker"] == ticker].sort_values("date")
     elif isinstance(ticker, (list, tuple)):
