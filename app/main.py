@@ -1,7 +1,7 @@
 from fastapi import FastAPI, HTTPException
 from app.schemas import RunRequest
-from app.agents.market_agent import run_market_agent
-from app.agents.analyst_agent import run_analyst_agent
+from app.agents.market_agent_heuristico import run_market_agent
+from app.agents.analyst_agent_heuristico import run_analyst_agent
 
 app = FastAPI(title="Financial Multiagent POC")
 
