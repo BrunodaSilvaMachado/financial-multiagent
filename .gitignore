@@ -20,3 +20,5 @@ Thumbs.db
 
 # Ignorar
 todo
+*-checkpoint.ipynb
+.ipynb_checkpoints/
