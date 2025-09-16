@@ -53,11 +53,11 @@ if st.button("Analisar"):
                     st.markdown("### 🔎 Análise")
                     recommendation = content["analysis"]["analysis"]
                     if "BUY" in recommendation:
-                        st.markdown(f"**Recomendação:** 🟢 :green[BUY]")
+                        st.markdown(f"**Recomendação:** 🟩 :green[BUY]")  # Cartão verde
                     elif "SELL" in recommendation:
-                        st.markdown(f"**Recomendação:** 🔴 :red[SELL]")
+                        st.markdown(f"**Recomendação:** 🟥 :red[SELL]")  # Cartão vermelho
                     else:
-                        st.markdown(f"**Recomendação:** 🟡 :yellow[HOLD]")
+                        st.markdown(f"**Recomendação:** 🟨 :yellow[HOLD]")  # Cartão amarelo
                     st.markdown(recommendation)
 
                     st.markdown("### 🧐 Revisão Crítica")
