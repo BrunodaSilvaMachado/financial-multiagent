@@ -12,7 +12,7 @@ app = FastAPI(title="Financial Multiagent POC")
 @app.post("/run")
 def run_pipeline(req: RunRequest):
     try:
-        market_result = run_market_agent(req.ticker)
+        market_result = run_market_agent(req.ticker, req.exchange)
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
 
