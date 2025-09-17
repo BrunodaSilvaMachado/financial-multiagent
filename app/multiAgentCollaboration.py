@@ -17,6 +17,22 @@ analyst_agent = AnalystAgent(llama)
 critic_agent = CriticAgent(llama)
 
 def _select_market_agent(exchange:str):
+    """
+    Seleciona e retorna uma instância de agente de mercado com base na exchange especificada.
+    exchange (str): Identificador da exchange. Valores suportados são 'br' para Brasil e 'us' para Estados Unidos.
+    MarketAgentBr ou MarketAgent: Instância da classe de agente de mercado apropriada para a exchange informada.
+    ValueError: Se a exchange fornecida não for suportada.
+    """
+    """
+    Selects and returns a market agent instance based on the specified exchange.
+    Args:
+        exchange (str): The exchange identifier. Supported values are 'br' for Brazil and 'us' for United States.
+    Returns:
+        MarketAgentBr or MarketAgent: An instance of the appropriate market agent class for the given exchange.
+    Raises:
+        ValueError: If the provided exchange is not supported.
+    """
+    
     if exchange == "br":
         return MarketAgentBr()
     elif exchange == "us":

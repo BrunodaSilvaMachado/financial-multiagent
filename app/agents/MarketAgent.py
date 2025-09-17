@@ -6,6 +6,25 @@ from alpha_vantage.timeseries import TimeSeries
 import requests
 
 class MarketAgent:
+    """
+    MarketAgent é responsável por buscar e armazenar em cache dados diários do mercado financeiro para um determinado ticker,
+    além de calcular estatísticas básicas a partir desses dados.
+    Atributos:
+        ts (TimeSeries): Instância para acessar dados de séries temporais da Alpha Vantage.
+        cache_dir (str): Caminho do diretório para armazenar arquivos de cache.
+        outputsize (str): Parâmetro de tamanho de saída para requisições à API ("compact" ou "full").
+    Métodos:
+        __init__(api_key: str, cache_dir="data_cache", outputsize="compact"):
+            Inicializa o MarketAgent com chave de API, diretório de cache e tamanho de saída.
+        run(ticker: str) -> dict:
+            Busca dados diários de mercado para o ticker especificado, da API ou do cache local.
+            Calcula e retorna um dicionário contendo o ticker e suas features calculadas:
+                - last_price: Último preço de fechamento.
+                - returns_7: Média dos últimos 7 retornos diários.
+                - vol_7: Desvio padrão dos últimos 7 retornos diários.
+                - sma_5: Média móvel simples dos últimos 5 preços de fechamento.
+                - sma_20: Média móvel simples dos últimos 20 preços de fechamento.
+    """
     def __init__(self, api_key: str, cache_dir="data_cache", outputsize="compact"):
         self.ts = TimeSeries(key=api_key, output_format="pandas")
         self.cache_dir = cache_dir
